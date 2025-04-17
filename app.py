@@ -11,11 +11,17 @@ st.set_page_config(page_title="Bid Rigging Detection", layout="centered")
 # Title of the app
 st.title("🕵️‍♂️ Bid Rigging Detection & Prediction System")
 
+# Model selection dropdown
+model_choice = st.selectbox("Select Prediction Model", ["Logistic Regression", "Random Forest"])
+
+# Load the selected model
+if model_choice == "Logistic Regression":
+    model = joblib.load("models/model.pkl")
+else:
+    model = joblib.load("models/random_forest_model.pkl")
+
 # File uploader for CSV files
 uploaded_file = st.file_uploader("Upload CSV File", type=["csv"])
-
-# Load the pre-trained ML model
-model = joblib.load("models/model.pkl")
 
 # Function to display bidder behavior visualizations
 def plot_bidder_behavior(df):
